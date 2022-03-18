@@ -1,0 +1,95 @@
+version: '3'
+services:
+  eurekaserver:
+    build: eurekaserver
+    ports:
+      - "8686:8686"
+    restart: always
+
+  nike-1:
+    build: nike
+    ports:
+      - "8001:8001"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/nike
+    depends_on:
+      - eurekaserver
+    restart: always
+
+  nike-2:
+    build: nike
+    ports:
+      - "8002:8002"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/nike
+      SERVER_PORT: 8002
+    restart: always
+    depends_on:
+      - eurekaserver
+
+  doge-1:
+    build: doge
+    ports:
+      - "8101:8101"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/superdoge
+    restart: always
+    depends_on:
+      - eurekaserver
+
+  doge-2:
+    build: doge
+    ports:
+      - "8102:8102"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/superdoge
+      SERVER_PORT: 8102
+    restart: always
+    depends_on:
+      - eurekaserver
+
+  fastdelivery-1:
+    build: fastdelivery
+    ports:
+      - "8201:8201"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+    restart: always
+    depends_on:
+      - eurekaserver
+
+  fastdelivery-2:
+    build: fastdelivery
+    ports:
+      - "8202:8202"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+      SERVER_PORT: 8202
+    restart: always
+    depends_on:
+      - eurekaserver
+
+  safedelivery-1:
+    build: safedelivery
+    ports:
+      - "8301:8301"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+    restart: always
+    depends_on:
+      - eurekaserver
+
+  safedelivery-2:
+    build: safedelivery
+    ports:
+      - "8302:8302"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8686/eureka
+      SERVER_PORT: 8302
+    restart: always
+    depends_on:
+      - eurekaserver

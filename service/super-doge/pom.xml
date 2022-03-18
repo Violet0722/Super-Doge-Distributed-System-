@@ -1,0 +1,15 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.superdoge</groupId>
+    <artifactId>superdoge</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>eurekaserver</module>
+        <module>doge</module>
+        <module>nike</module>
+        <module>fastdelivery</module>
+        <module>safedelivery</module>
+    </modules>
+</project>
